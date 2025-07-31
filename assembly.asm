@@ -1,22 +1,21 @@
-section .data
-    factor dq 0.277777778
-
 section .text
     bits 64
     global asmcompute
 
 asmcompute:
 
-    movsd xmm3, [factor] 
+    subsd xmm1, xmm0 ; (vf - vi)
+    divsd xmm1, xmm2 ; accel km/h/s
+    
+    ; Convert km/h/s to m/s^2
+    mov rax, 0x408F400000000000    ; 1000.0
+    movq xmm3, rax
+    mulsd xmm1, xmm3            
+    
+    mov rax, 0x40BC200000000000 ; 3600.0
+    movq xmm3, rax  
+    divsd xmm1, xmm3    ; m/s^2
 
-    ; Convert to m/s
-    mulsd xmm0, xmm3
-    mulsd xmm1, xmm3
-
-    ; Compute (vf - vi)/t
-    subsd xmm1, xmm0
-    divsd xmm1, xmm2
-
-    ; Convert result to integer and return
-    cvtsd2si eax, xmm1
+    roundsd xmm1, xmm1, 0 ; round 2 nearest
+    cvtsd2si eax, xmm1 
     ret
