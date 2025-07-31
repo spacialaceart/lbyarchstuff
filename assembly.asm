@@ -12,10 +12,9 @@ asmcompute:
     movq xmm3, rax
     mulsd xmm1, xmm3            
     
-    mov rax, 0x40BC200000000000 ; 3600.0
+    mov rax, 0x40AC200000000000 ; 3600.0
     movq xmm3, rax  
     divsd xmm1, xmm3    ; m/s^2
 
-    roundsd xmm1, xmm1, 0 ; round 2 nearest
     cvtsd2si eax, xmm1 
     ret
