@@ -18,5 +18,5 @@ asmcompute:
     divsd xmm1, xmm2
 
     ; Convert result to integer and return
-    cvttsd2si eax, xmm1
+    cvtsd2si eax, xmm1
     ret
