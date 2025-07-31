@@ -22,8 +22,8 @@ int main()
 
   for (int i = 0; i < n; i++)
   {
-    scanf("%lf %lf %lf", &vi, &vf, &t);
-    result = calculate_acceleration(vi, vf, t);
+    scanf("%lf,%lf,%lf", &vi, &vf, &t);
+    result = asmcompute(vi, vf, t);
     printf("%d\n", result);
   }
 
