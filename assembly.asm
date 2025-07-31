@@ -3,13 +3,10 @@ section .data
 
 section .text
     bits 64
-    default rel
     global asmcompute
 
 asmcompute:
-    movq xmm0, rcx        ; vi
-    movq xmm1, rdx        ; vf
-    movq xmm2, r8         ; t
+
     movsd xmm3, [factor] 
 
     ; Convert to m/s
@@ -20,6 +17,6 @@ asmcompute:
     subsd xmm1, xmm0
     divsd xmm1, xmm2
 
-    ; return int
+    ; Convert result to integer and return
     cvttsd2si eax, xmm1
     ret
